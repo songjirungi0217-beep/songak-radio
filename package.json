@@ -9,7 +9,9 @@
     "lint": "next lint"
   },
   "dependencies": {
-    "@prisma/client": "^5.0.0",
+    "@libsql/client": "^0.8.0",
+    "@prisma/adapter-libsql": "^5.22.0",
+    "@prisma/client": "^5.22.0",
     "lucide-react": "^0.292.0",
     "next": "14.0.0",
     "react": "^18.2.0",
@@ -18,6 +20,6 @@
   "devDependencies": {
     "eslint": "^8.52.0",
     "eslint-config-next": "14.0.0",
-    "prisma": "^5.0.0"
+    "prisma": "^5.22.0"
   }
 }

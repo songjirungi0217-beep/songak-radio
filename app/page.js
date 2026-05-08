@@ -206,13 +206,10 @@ export default function Home() {
                 value={formData.genre}
                 onChange={handleInputChange}
               >
-                <option value="발라드">발라드</option>
-                <option value="댄스">댄스</option>
-                <option value="힙합">힙합</option>
-                <option value="R&B">R&B</option>
-                <option value="인디">인디</option>
                 <option value="팝송">팝송</option>
-                <option value="OST">OST</option>
+                <option value="발라드">발라드</option>
+                <option value="힙합">힙합</option>
+                <option value="케이팝">케이팝</option>
                 <option value="기타">기타</option>
               </select>
             </div>
