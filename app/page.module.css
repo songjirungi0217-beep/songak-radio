@@ -27,9 +27,57 @@
 }
 
 /* Playlist Section */
-.playlistSection, .formSection {
+.playlistSection, .formSection, .scheduleSection {
   padding: 2rem;
   animation: fadeInUp 0.6s ease-out;
+}
+
+.scheduleGrid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  gap: 1.5rem;
+}
+
+.scheduleItem {
+  background: rgba(255, 255, 255, 0.05);
+  padding: 1.5rem;
+  border-radius: 16px;
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  transition: all 0.3s ease;
+}
+
+.scheduleItem:hover {
+  background: rgba(255, 255, 255, 0.1);
+  transform: translateY(-5px);
+  border-color: var(--primary-color);
+}
+
+.scheduleDay {
+  font-size: 1.5rem;
+  font-weight: 800;
+  color: var(--primary-color);
+  background: rgba(139, 92, 246, 0.1);
+  width: 45px;
+  height: 45px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-radius: 10px;
+}
+
+.scheduleTheme {
+  font-weight: 700;
+  font-size: 1.2rem;
+  color: #fff;
+}
+
+.scheduleDesc {
+  font-size: 0.95rem;
+  color: var(--text-muted);
+  line-height: 1.5;
 }
 
 .sectionTitle {

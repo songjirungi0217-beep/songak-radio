@@ -2,7 +2,7 @@
 
 import { useState, useEffect } from 'react';
 import styles from './page.module.css';
-import { Music, Headphones, Send, Clock } from 'lucide-react';
+import { Music, Headphones, Send, Clock, Calendar } from 'lucide-react';
 
 export default function Home() {
   const [playlist, setPlaylist] = useState([]);
@@ -88,6 +88,40 @@ export default function Home() {
         <h1>On-Air Requests</h1>
         <p>송악고등학교 방송부 노래 및 사연 신청 시스템</p>
       </header>
+
+      <section className={`${styles.scheduleSection} glass-panel`}>
+        <h2 className={styles.sectionTitle}>
+          <Calendar size={24} className={styles.icon} />
+          주간 방송 테마
+        </h2>
+        <div className={styles.scheduleGrid}>
+          <div className={styles.scheduleItem}>
+            <span className={styles.scheduleDay}>월</span>
+            <span className={styles.scheduleTheme}>텐션 UP!</span>
+            <p className={styles.scheduleDesc}>무기력한 월요일, 노래를 듣자마자 춤추고 싶어지는 K-POP 코너!!</p>
+          </div>
+          <div className={styles.scheduleItem}>
+            <span className={styles.scheduleDay}>화</span>
+            <span className={styles.scheduleTheme}>팝의 모든 것</span>
+            <p className={styles.scheduleDesc}>세상의 모든 팝이 이곳에! 발라드, 댄스, 락, R&B 모두 모여라</p>
+          </div>
+          <div className={styles.scheduleItem}>
+            <span className={styles.scheduleDay}>수</span>
+            <span className={styles.scheduleTheme}>감성에 취하고 싶은 날</span>
+            <p className={styles.scheduleDesc}>하루에 감성을 더하는 시간, 잔잔하게 스며드는 인디와 발라드</p>
+          </div>
+          <div className={styles.scheduleItem}>
+            <span className={styles.scheduleDay}>목</span>
+            <span className={styles.scheduleTheme}>드랍 더 비트!</span>
+            <p className={styles.scheduleDesc}>강렬한 리듬과 비트 한 방으로 스트레스를 날려버리는 힙합 코너</p>
+          </div>
+          <div className={styles.scheduleItem}>
+            <span className={styles.scheduleDay}>금</span>
+            <span className={styles.scheduleTheme}>오늘은 내맘대로!</span>
+            <p className={styles.scheduleDesc}>일주일의 마지막 금요일! 내가 원하는 나만의 플레이리스트 코너</p>
+          </div>
+        </div>
+      </section>
 
       <section className={`${styles.playlistSection} glass-panel`}>
         <h2 className={styles.sectionTitle}>
