@@ -1,0 +1,21 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "sqlite"
+  url      = env("DATABASE_URL")
+}
+
+model SongRequest {
+  id           Int      @id @default(autoincrement())
+  title        String
+  artist       String
+  story        String
+  genre        String
+  requester    String
+  is_anonymous Boolean  @default(false)
+  status       String   @default("대기")
+  request_type String   @default("노래")
+  created_at   DateTime @default(now())
+}
