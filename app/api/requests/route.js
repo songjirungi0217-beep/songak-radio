@@ -25,33 +25,31 @@ export async function POST(request) {
   try {
     const data = await request.json();
 
-    // Check for duplicate song today
+    // Check for duplicate song today (ignore spaces and case)
     const startOfDay = new Date();
     startOfDay.setHours(0, 0, 0, 0);
-
     const endOfDay = new Date();
     endOfDay.setHours(23, 59, 59, 999);
 
-    let existingRequest = null;
-    if (data.title && data.title.trim() !== '') {
-      existingRequest = await prisma.songRequest.findFirst({
+    if (data.request_type === '노래' && data.title && data.title.trim() !== '') {
+      const todaySongs = await prisma.songRequest.findMany({
         where: {
-          title: {
-            equals: data.title,
-          },
-          created_at: {
-            gte: startOfDay,
-            lte: endOfDay,
-          },
+          request_type: '노래',
+          created_at: { gte: startOfDay, lte: endOfDay },
         },
       });
-    }
 
-    if (existingRequest && data.request_type === '노래') {
-      return NextResponse.json(
-        { error: '이 곡은 오늘 이미 신청되었습니다.' },
-        { status: 400 }
+      const normalizedNewTitle = data.title.replace(/\s+/g, '').toLowerCase();
+      const isDuplicate = todaySongs.some(req => 
+        req.title.replace(/\s+/g, '').toLowerCase() === normalizedNewTitle
       );
+
+      if (isDuplicate) {
+        return NextResponse.json(
+          { error: '이 곡은 오늘 이미 신청되었습니다.' },
+          { status: 400 }
+        );
+      }
     }
 
     const newRequest = await prisma.songRequest.create({
