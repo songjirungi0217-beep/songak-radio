@@ -27,3 +27,22 @@ export async function PATCH(request, { params }) {
     return NextResponse.json({ error: 'Failed to update request' }, { status: 500 });
   }
 }
+
+export async function DELETE(request, { params }) {
+  const id = parseInt(params.id);
+
+  if (isNaN(id)) {
+    return NextResponse.json({ error: 'Invalid ID' }, { status: 400 });
+  }
+
+  try {
+    await prisma.songRequest.delete({
+      where: { id },
+    });
+
+    return NextResponse.json({ success: true });
+  } catch (error) {
+    console.error(error);
+    return NextResponse.json({ error: 'Failed to delete request' }, { status: 500 });
+  }
+}

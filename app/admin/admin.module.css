@@ -168,22 +168,43 @@
 
 .cardActions {
   display: flex;
-  gap: 0.75rem;
+  justify-content: space-between;
+  align-items: center;
+  gap: 1rem;
   margin-top: auto;
 }
 
-.pickBtn, .completeBtn, .revertBtn {
-  flex: 1;
+.statusActions {
   display: flex;
-  justify-content: center;
+  gap: 0.5rem;
+  flex: 1;
+}
+
+.pickBtn, .completeBtn, .revertBtn, .deleteBtn {
+  display: flex;
   align-items: center;
-  gap: 0.4rem;
-  padding: 0.75rem;
-  border: none;
+  justify-content: center;
+  gap: 0.5rem;
+  padding: 0.6rem 1rem;
   border-radius: 8px;
+  font-size: 0.9rem;
   font-weight: 600;
   cursor: pointer;
-  transition: opacity 0.2s, transform 0.1s;
+  border: none;
+  transition: all 0.2s;
+  flex: 1;
+}
+
+.deleteBtn {
+  background: rgba(239, 68, 68, 0.1);
+  color: #ef4444;
+  flex: 0 0 auto;
+  padding: 0.6rem;
+}
+
+.deleteBtn:hover {
+  background: #ef4444;
+  color: white;
 }
 
 .pickBtn {

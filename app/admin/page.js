@@ -2,7 +2,7 @@
 
 import { useState, useEffect } from 'react';
 import styles from './admin.module.css';
-import { CheckCircle, Play, Filter, LayoutDashboard } from 'lucide-react';
+import { CheckCircle, Play, Filter, LayoutDashboard, Trash2 } from 'lucide-react';
 
 export default function AdminDashboard() {
   const [requests, setRequests] = useState([]);
@@ -25,13 +25,32 @@ export default function AdminDashboard() {
   }, []);
 
   const updateStatus = async (id, status) => {
-    const res = await fetch(`/api/requests/${id}`, {
-      method: 'PATCH',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ status })
-    });
-    if (res.ok) {
-      fetchRequests();
+    try {
+      const res = await fetch(`/api/requests/${id}`, {
+        method: 'PATCH',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ status }),
+      });
+      if (res.ok) {
+        setRequests(requests.map(req => req.id === id ? { ...req, status } : req));
+      }
+    } catch (error) {
+      console.error('Failed to update status:', error);
+    }
+  };
+
+  const deleteRequest = async (id) => {
+    if (!confirm('정말 삭제하시겠습니까?')) return;
+    
+    try {
+      const res = await fetch(`/api/requests/${id}`, {
+        method: 'DELETE',
+      });
+      if (res.ok) {
+        setRequests(requests.filter(r => r.id !== id));
+      }
+    } catch (error) {
+      console.error('Failed to delete:', error);
     }
   };
 
@@ -103,23 +122,28 @@ export default function AdminDashboard() {
                   </div>
                 </div>
 
-                <div className={styles.cardActions}>
-                  {req.status === '대기' && (
-                    <button onClick={() => updateStatus(req.id, '선곡')} className={styles.pickBtn}>
-                      <Play size={16} /> 오늘의 픽 (선곡)
+                  <div className={styles.cardActions}>
+                    <div className={styles.statusActions}>
+                      {req.status === '대기' && (
+                        <button onClick={() => updateStatus(req.id, '선곡')} className={styles.pickBtn}>
+                          <Play size={16} /> 오늘의 픽 (선곡)
+                        </button>
+                      )}
+                      {(req.status === '대기' || req.status === '선곡') && (
+                        <button onClick={() => updateStatus(req.id, '완료')} className={styles.completeBtn}>
+                          <CheckCircle size={16} /> 방송 완료
+                        </button>
+                      )}
+                      {req.status === '완료' && (
+                        <button onClick={() => updateStatus(req.id, '대기')} className={styles.revertBtn}>
+                          대기 상태로 되돌리기
+                        </button>
+                      )}
+                    </div>
+                    <button onClick={() => deleteRequest(req.id)} className={styles.deleteBtn} title="삭제">
+                      <Trash2 size={18} />
                     </button>
-                  )}
-                  {(req.status === '대기' || req.status === '선곡') && (
-                    <button onClick={() => updateStatus(req.id, '완료')} className={styles.completeBtn}>
-                      <CheckCircle size={16} /> 방송 완료
-                    </button>
-                  )}
-                  {req.status === '완료' && (
-                    <button onClick={() => updateStatus(req.id, '대기')} className={styles.revertBtn}>
-                      대기 상태로 되돌리기
-                    </button>
-                  )}
-                </div>
+                  </div>
               </div>
             ))}
           </div>
