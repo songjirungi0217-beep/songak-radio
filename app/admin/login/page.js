@@ -8,21 +8,32 @@ import { Lock } from 'lucide-react';
 export default function Login() {
   const [password, setPassword] = useState('');
   const [error, setError] = useState('');
+  const [submitting, setSubmitting] = useState(false);
   const router = useRouter();
 
   const handleLogin = async (e) => {
     e.preventDefault();
-    const res = await fetch('/api/auth', {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ password }),
-    });
+    setSubmitting(true);
+    setError('');
 
-    if (res.ok) {
-      router.push('/admin');
-      router.refresh();
-    } else {
-      setError('비밀번호가 일치하지 않습니다.');
+    try {
+      const res = await fetch('/api/auth', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ password }),
+      });
+
+      if (res.ok) {
+        router.push('/admin');
+        router.refresh();
+      } else {
+        const data = await res.json().catch(() => ({}));
+        setError(data.error || '비밀번호가 일치하지 않습니다.');
+      }
+    } catch {
+      setError('로그인 요청을 처리하지 못했습니다. 다시 시도해 주세요.');
+    } finally {
+      setSubmitting(false);
     }
   };
 
@@ -38,7 +49,9 @@ export default function Login() {
           placeholder="비밀번호를 입력하세요"
           className={styles.input}
         />
-        <button type="submit" className={styles.submitBtn}>로그인</button>
+        <button type="submit" className={styles.submitBtn} disabled={submitting}>
+          {submitting ? '로그인 중...' : '로그인'}
+        </button>
       </form>
     </div>
   );

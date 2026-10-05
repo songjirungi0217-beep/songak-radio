@@ -1,5 +1,5 @@
 [build]
-  command = "npx prisma generate && npm run build"
+  command = "npx prisma generate && node scripts/migrate-turso.mjs && npm run build"
   publish = ".next"
 
 [[plugins]]

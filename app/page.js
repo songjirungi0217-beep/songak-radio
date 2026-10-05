@@ -193,6 +193,7 @@ export default function Home() {
                 id="story" 
                 name="story" 
                 className={styles.textarea} 
+                maxLength={1000}
                 required
                 value={formData.story}
                 onChange={handleInputChange}
@@ -209,6 +210,7 @@ export default function Home() {
                 id="title" 
                 name="title" 
                 className={styles.input} 
+                maxLength={120}
                 required={requestType === '노래'}
                 value={formData.title}
                 onChange={handleInputChange}
@@ -222,6 +224,7 @@ export default function Home() {
                 id="artist" 
                 name="artist" 
                 className={styles.input} 
+                maxLength={80}
                 required={requestType === '노래'}
                 value={formData.artist}
                 onChange={handleInputChange}
@@ -254,6 +257,7 @@ export default function Home() {
                 id="requester" 
                 name="requester" 
                 className={styles.input} 
+                maxLength={40}
                 value={formData.requester}
                 onChange={handleInputChange}
                 placeholder="이름을 입력하세요"
@@ -269,6 +273,9 @@ export default function Home() {
                 />
                 <span>익명으로 신청하기</span>
               </label>
+              <span className={styles.limitNote}>
+                노래·사연 합산 하루 최대 3건입니다. 이름 신청은 입력한 이름, 익명 신청은 현재 브라우저 기준으로 계산됩니다.
+              </span>
             </div>
           </div>
 
@@ -279,6 +286,7 @@ export default function Home() {
                 id="story" 
                 name="story" 
                 className={styles.textarea} 
+                maxLength={1000}
                 value={formData.story}
                 onChange={handleInputChange}
                 placeholder="간단한 코멘트를 남겨주세요."

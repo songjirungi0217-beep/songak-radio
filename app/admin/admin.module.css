@@ -24,7 +24,22 @@
 
 .filters {
   display: flex;
+  align-items: center;
   gap: 1rem;
+}
+
+.logoutBtn {
+  padding: 0.55rem 0.85rem;
+  border: 1px solid var(--glass-border);
+  border-radius: 8px;
+  background: var(--glass-bg);
+  color: var(--text-muted);
+  cursor: pointer;
+}
+
+.logoutBtn:hover {
+  color: var(--text-color);
+  border-color: var(--primary-color);
 }
 
 .filterGroup {

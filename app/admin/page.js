@@ -1,10 +1,12 @@
 'use client';
 
 import { useState, useEffect } from 'react';
+import { useRouter } from 'next/navigation';
 import styles from './admin.module.css';
 import { CheckCircle, Play, Filter, LayoutDashboard, Trash2 } from 'lucide-react';
 
 export default function AdminDashboard() {
+  const router = useRouter();
   const [requests, setRequests] = useState([]);
   const [filterGenre, setFilterGenre] = useState('all');
   const [filterStatus, setFilterStatus] = useState('대기');
@@ -54,6 +56,12 @@ export default function AdminDashboard() {
     }
   };
 
+  const logout = async () => {
+    await fetch('/api/auth', { method: 'DELETE' });
+    router.replace('/admin/login');
+    router.refresh();
+  };
+
   const filteredRequests = requests.filter(req => {
     const matchGenre = filterGenre === 'all' || req.genre === filterGenre;
     const matchStatus = filterStatus === 'all' || req.status === filterStatus;
@@ -89,6 +97,7 @@ export default function AdminDashboard() {
               <option value="기타">기타</option>
             </select>
           </div>
+          <button type="button" onClick={logout} className={styles.logoutBtn}>로그아웃</button>
         </div>
       </header>
 

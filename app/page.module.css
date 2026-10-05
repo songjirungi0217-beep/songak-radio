@@ -261,6 +261,12 @@
   cursor: pointer;
 }
 
+.limitNote {
+  color: var(--text-muted);
+  font-size: 0.8rem;
+  line-height: 1.45;
+}
+
 .submitBtn {
   margin-top: 1rem;
   padding: 1rem;
